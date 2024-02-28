@@ -1,5 +1,5 @@
-# Short-Format-Video-Creator-Tiktok-Reels-YT-Short-and-stuff
-Python code to (hopefully) automate video creation
+# Short-Format-Video-Creator
+Python code to (hopefully) automate short form video creation. Tiktok / Reels / Youtube short. 
 
 There is a certain type of short video form that is repited in educational / self-help / inspirational content. Its about the type of video with 2sec intro and then blasting among different tips/advice/methods to finally add an outro screen with a CTA.
 
@@ -15,3 +15,4 @@ Some examples.
   * => https://www.instagram.com/reel/C3MNJR3Nv6i/?utm_source=ig_web_copy_link
 
 The goal of this code is to upload a CSV file with content and different videos and after running the code, save a bunch of different vertical short videos
+
