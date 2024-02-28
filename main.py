@@ -14,70 +14,58 @@
 import random
 
 def shuffle_data(data):
-    shuffled_data = data["tips"]
+    shuffled_data = data
     random.shuffle(shuffled_data)
     return shuffled_data
-
-import random
-
-def shuffle_data(data):
-    shuffled_data = data["tips"].copy()
-    random.shuffle(shuffled_data)
-    return shuffled_data
-
-def create_f_deck(shuffled_data):
-    f_deck = {}
-    data_length = len(shuffled_data)
-    first_index = 0
-    last_index = 2
-    used_items = set()
-
-    f_deck["Block 1"] = [
-        shuffled_data[0],
-        shuffled_data[1],
-        shuffled_data[2]
-    ]
-    used_items.update(f_deck["Block 1"])
-
-    for i in range(3):
-        first = (last_index + 1) % data_length
-        second = (first_index + 1) % data_length
-        third = (last_index + 2) % data_length
-
-        new_block = [
-            shuffled_data[first],
-            shuffled_data[second],
-            shuffled_data[third]
-        ]
-
-        # Check if at least 50% of the items in the new block are new
-        new_items_count = sum(1 for item in new_block if item not in used_items)
-        if new_items_count >= 2:
-            f_deck["Block " + str(i+2)] = new_block
-            used_items.update(new_block)
-        else:
-            # If not, shuffle the data again and try creating the block
-            random.shuffle(shuffled_data)
-            return create_f_deck(shuffled_data)
-
-        first_index = second
-        last_index = third
-
-    return f_deck
 
 data = {
   "tips": [
-    "tip 1",
     "tip 2",
+    "tip 1",
     "tip 3",
+    "tip 7",
     "tip 4",
     "tip 5",
     "tip 6",
-    "tip 7"
   ],
 }
 
-shuffled_data = shuffle_data(data)
-f_deck = create_f_deck(shuffled_data)
-print(f_deck)
+def deck(data):
+    index_count = {}
 
+    # shuffled_data = shuffle_data(data)
+    shuffled_data = data
+    print("-----------------------------")
+    print(shuffled_data)
+    print("-----------------------------")
+
+    # First iteration
+    print (f"INDEX [0] | Resultado {shuffled_data[0]}")
+    print (f"INDEX [1] | Resultado {shuffled_data[1]}")
+    print (f"INDEX [2] | Resultado {shuffled_data[2]}")
+
+    first_index = 0
+    third_index = 2
+
+    for i in range(len(shuffled_data)):
+        index_count[f"{i + 1 }"] = 0
+        
+ 
+    print("-----------------------------")
+    print(index_count)
+
+    for i in range(3):
+        new_first_index = (third_index + 1) % len(shuffled_data)  # Utilizamos % para volver al inicio si nos pasamos
+        print (f"INDEX [{new_first_index}] | Resultado {shuffled_data[new_first_index]}")
+        
+        # index_count[str(new_first_index)] = index_count.get(str(new_first_index), 0) + 1 
+
+        print (f"INDEX [{first_index}] | Resultado {shuffled_data[first_index]}")
+        third_index = (new_first_index + 1) % len(shuffled_data)  # Utilizamos % para volver al inicio si nos pasamos
+        print (f"INDEX [{third_index}] | Resultado {shuffled_data[third_index]}")
+
+        first_index = (first_index + 1) % len(shuffled_data)  # Utilizamos % para volver al inicio si nos pasamos
+        print("-----------------------------")
+    print(index_count)
+
+print (deck(data['tips']))
