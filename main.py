@@ -10,62 +10,58 @@
 # -- Outro & CTA --
 # Save the video / Comment "Word"
 
-##---------------------------------------------------------------------------
+import itertools
 import random
 
-def shuffle_data(data):
-    shuffled_data = data
-    random.shuffle(shuffled_data)
-    return shuffled_data
+def deck(data, group_size, max_repetitions):
+    tips = data["tips"]
+    num_tips = len(tips)
+
+    # Generar todas las posibles combinaciones de tips de tamaño group_size
+    combinations = list(itertools.combinations(tips, group_size))
+
+    valid_combinations = []
+    tip_counts = {tip: 0 for tip in tips}  # Contador para llevar el seguimiento de las repeticiones de cada tip en cada bloque
+
+    # Mezclar el orden de las combinaciones para una distribución aleatoria
+    random.shuffle(combinations)
+
+    # Verificar cada combinación
+    for combination in combinations:
+        # Verificar si la combinación cumple con las restricciones de repeticiones en el bloque actual
+        if all(tip_counts[tip] + combination.count(tip) <= max_repetitions for tip in set(combination)):
+            # Mezclar el orden de los tips dentro de la combinación
+            shuffled_combination = list(combination)
+            random.shuffle(shuffled_combination)
+            valid_combinations.append(shuffled_combination)
+            # Incrementar el contador para los tips en esta combinación
+            for tip in combination:
+                tip_counts[tip] += combination.count(tip)
+
+    return valid_combinations
 
 data = {
   "tips": [
-    "tip 2",
     "tip 1",
+    "tip 2",
     "tip 3",
-    "tip 7",
     "tip 4",
     "tip 5",
     "tip 6",
+    "tip 7",
+    "tip 8",
+    "tip 9",
+    "tip 10",
+    "tip 11",
+    "tip 12",
+    "tip 13",
+    "tip 14",
+    "tip 15",
+    "tip 16",
   ],
 }
 
-def deck(data):
-    index_count = {}
+group_size = 3
+max_repetitions = 3
+print(deck(data, group_size, max_repetitions))
 
-    # shuffled_data = shuffle_data(data)
-    shuffled_data = data
-    print("-----------------------------")
-    print(shuffled_data)
-    print("-----------------------------")
-
-    # First iteration
-    print (f"INDEX [0] | Resultado {shuffled_data[0]}")
-    print (f"INDEX [1] | Resultado {shuffled_data[1]}")
-    print (f"INDEX [2] | Resultado {shuffled_data[2]}")
-
-    first_index = 0
-    third_index = 2
-
-    for i in range(len(shuffled_data)):
-        index_count[f"{i + 1 }"] = 0
-        
- 
-    print("-----------------------------")
-    print(index_count)
-
-    for i in range(3):
-        new_first_index = (third_index + 1) % len(shuffled_data)  # Utilizamos % para volver al inicio si nos pasamos
-        print (f"INDEX [{new_first_index}] | Resultado {shuffled_data[new_first_index]}")
-        
-        # index_count[str(new_first_index)] = index_count.get(str(new_first_index), 0) + 1 
-
-        print (f"INDEX [{first_index}] | Resultado {shuffled_data[first_index]}")
-        third_index = (new_first_index + 1) % len(shuffled_data)  # Utilizamos % para volver al inicio si nos pasamos
-        print (f"INDEX [{third_index}] | Resultado {shuffled_data[third_index]}")
-
-        first_index = (first_index + 1) % len(shuffled_data)  # Utilizamos % para volver al inicio si nos pasamos
-        print("-----------------------------")
-    print(index_count)
-
-print (deck(data['tips']))
