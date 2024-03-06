@@ -72,5 +72,5 @@ def add_image(video_clip, img_path):
     
     return final_clip
 
-final = add_image(VideoFileClip("video.mp4"), generate_text(text_mid="Hola mundito!\nEspero estes contento :)", text_mid_size=100))
+final = add_image(VideoFileClip("video.mp4"), generate_text(text_mid="Hola planeta!\nEspero estes contento :)", text_mid_size=100))
 final.write_videofile("output_video.mp4")
